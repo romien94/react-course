@@ -13,17 +13,17 @@ class Header extends React.Component {
           <nav className="app-nav">
             <ul className="app-nav__list">
               <li className="app-nav__item">
-                <a href="https" onClick={this.props.changePage} data-some="map" className="app-nav__link">
+                <a href="https" onClick={(e) => {this.props.changePage(e, "map")}} className="app-nav__link">
                   Карта
                 </a>
               </li>
               <li className="app-nav__item">
-                <a href="https" onClick={this.props.changePage} data-some="profile" className="app-nav__link">
+                <a href="https" onClick={(e) => {this.props.changePage(e, "profile")}} className="app-nav__link">
                   Профиль
                 </a>
               </li>
               <li className="app-nav__item">
-                <a href="https" onClick={this.props.changePage} data-some="login" className="app-nav__link">
+                <a href="https" onClick={(e) => {this.props.changePage(e, "login")}} className="app-nav__link">
                   Выйти
                 </a>
               </li>

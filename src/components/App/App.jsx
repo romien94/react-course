@@ -32,21 +32,21 @@ class App extends React.Component {
     this.setState({ activePage: "map" });
   };
 
-  changePage = (e) => {
-    const target = e.target.dataset.some;
+  changePage = (e, page) => {
     e.preventDefault();
-    if (this.state.activePage !== target) {
-      return this.setState({ activePage: e.target.dataset.some });
-    }
-  };
+    this.setState({activePage: page})
+  }
 
   render() {
     return (
       <div className="app">
-        {this.state.activePage === "login" || this.stateActivePage === "registration"? null : <Header changePage={this.changePage}/>}
+        {this.state.activePage === "login" ||
+        this.stateActivePage === "registration" ? null : (
+          <Header changePage={this.changePage} />
+        )}
         {this.renderPages(this.state.activePage)}
       </div>
-    )
+    );
   }
 }
 
