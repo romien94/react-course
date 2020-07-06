@@ -23,33 +23,17 @@ class App extends React.Component {
   renderPages = (page) => {
     switch (page) {
       case "login":
-        return <LoginForm authenticate={this.authenticate} />;
+        return <LoginForm changePage={this.changePage} />;
       case "registration":
-        return <RegistrationForm authenticate={this.authenticate} />;
+        return <RegistrationForm changePage={this.changePage} />;
       case "map":
         return <Map />;
       case "profile":
         return <Profile />;
       default:
-        return <LoginForm authenticate={this.authenticate} />;
+        return <LoginForm changePage={this.changePage} />;
     }
   };
-
-  authenticate = (e, fields) => {
-    e.preventDefault();
-    const email = fields[0].value;
-    const password = fields[1].value;
-
-    this.props.logIn(email, password);
-    return this.setState({activePage: 'map'})
-  }
-
-  handleLogOut = (e) => {
-    e.preventDefault();
-    this.props.logOut();
-    console.log(this.props);
-    return this.setState({activePage: 'login'})
-  }
 
   changePage = (e, page) => {
     e.preventDefault();
@@ -64,7 +48,7 @@ class App extends React.Component {
       <div className="app">
         {this.state.activePage === "login" ||
         this.stateActivePage === "registration" ? null : (
-          <Header changePage={this.changePage} handleLogout={this.handleLogOut} />
+          <Header changePage={this.changePage} />
         )}
         {this.renderPages(this.state.activePage)}
       </div>

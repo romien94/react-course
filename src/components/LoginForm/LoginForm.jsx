@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {withAuth} from "../App/AuthContext";
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
@@ -12,7 +13,10 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(e) => {this.props.authenticate(e, {...e.target})}} className="app-form">
+      <form onSubmit={async (e) => {
+        await this.props.logIn();
+        this.props.changePage(e, 'map');
+        }} className="app-form">
         <div className="app-form__wrapper">
           <h2 className="app-form__title">Войти</h2>
           <p className="app-form__suggestion">
@@ -46,4 +50,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default withAuth(LoginForm);

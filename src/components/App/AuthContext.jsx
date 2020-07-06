@@ -17,14 +17,22 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// export const withAuth = (WrappedComponent) => {
+//   return class extends React.Component {
+//     render() {
+//       const context = React.useContext(AuthContext);
+//       return (
+//         <AuthContext.Consumer>
+//           {(value) => <WrappedComponent {...value} {...this.props} />}
+//         </AuthContext.Consumer>
+//       );
+//     }
+//   };
+// };
+
 export const withAuth = (WrappedComponent) => {
-  return class extends React.Component {
-    render() {
-      return (
-        <AuthContext.Consumer>
-          {(value) => <WrappedComponent {...value} {...this.props} />}
-        </AuthContext.Consumer>
-      );
-    }
-  };
-};
+  return (props) => {
+    const context = React.useContext(AuthContext);
+    return <WrappedComponent {...props} {...context}></WrappedComponent>
+  }
+}

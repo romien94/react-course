@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from "prop-types";
 import { Logo } from "loft-taxi-mui-theme";
 import Link from "@material-ui/core/Link";
+import {withAuth} from '../App/AuthContext';
 
 class Header extends React.Component {
   static propTypes = {
@@ -54,7 +55,8 @@ class Header extends React.Component {
                   data-testid="exit"
                   href="#"
                   onClick={(e) => {
-                    this.props.handleLogout(e);
+                    this.props.logOut();
+                    return this.props.changePage(e, "login")
                   }}
                   className="app-nav__link"
                 >
@@ -69,4 +71,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withAuth(Header);
