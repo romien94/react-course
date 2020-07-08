@@ -1,6 +1,5 @@
 import React from "react";
-// import jest from "jest";
-import { render } from "@testing-library/dom";
+import { render } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import Map from "./Map";
 
@@ -9,8 +8,22 @@ jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
   GeolocateControl: jest.fn(),
 }));
 
-describe("sdasdas", () => {
-  it("dsadas", () => {
-    
+describe('Map works fine', () => {
+  const { getByTestId, queryByTestId } = render(<Map/>);
+
+  describe('Has map module', () => {
+    expect(getByTestId('map')).toBeTruthy();
+  })
+
+  describe('Form is there', () => {
+    expect(getByTestId('from')).toBeTruthy();
+    expect(getByTestId('to')).toBeTruthy();
+    expect(getByTestId('call')).toBeTruthy();
+    expect(getByTestId('call')).toHaveAttribute('type', 'submit');
+  })
+
+  it("Snapshot matched", () => {
+    const mockMap = renderer.create(<Map />).toJSON();
+    expect(mockMap).toMatchSnapshot();
   });
-});
+})

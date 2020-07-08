@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Map works fine Snapshot matched 1`] = `
+<div
+  className="app-map"
+>
+  <div
+    className="app-map__map"
+    data-testid="map"
+    style={
+      Object {
+        "height": "500px",
+      }
+    }
+  />
+  <form
+    className="app-map__form app-form"
+    data-testid="form"
+  >
+    <div
+      className="app-form__wrapper"
+    >
+      <div
+        className="app-form__fields"
+      >
+        <div
+          className="app-form__row"
+        >
+          <label
+            className="MuiFormLabel-root"
+          >
+            <span
+              className="app-form__fieldname"
+            >
+              Откуда:
+            </span>
+            <div
+              className="MuiInputBase-root MuiInput-root MuiInput-underline app-form__input"
+              data-testid="from"
+              onClick={[Function]}
+            >
+              <input
+                className="MuiInputBase-input MuiInput-input"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                type="text"
+              />
+            </div>
+          </label>
+        </div>
+        <div
+          className="app-form__row"
+        >
+          <label
+            className="MuiFormLabel-root"
+          >
+            <span
+              className="app-form__fieldname"
+            >
+              Куда:
+            </span>
+            <div
+              className="MuiInputBase-root MuiInput-root MuiInput-underline app-form__input"
+              data-testid="to"
+              onClick={[Function]}
+            >
+              <input
+                className="MuiInputBase-input MuiInput-input"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                type="text"
+              />
+            </div>
+          </label>
+        </div>
+        <div
+          className="app-form__controls"
+        >
+          <div
+            className="app-form__row"
+          >
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained button app-form__button"
+              data-testid="call"
+              disabled={false}
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="submit"
+            >
+              <span
+                className="MuiButton-label"
+              >
+                Вызвать такси
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

@@ -26,6 +26,7 @@ class Map extends React.Component {
           ref={this.map}
           style={{ height: "500px" }}
           className="app-map__map"
+          data-testid="map"
         />
         <form data-testid="form" className="app-map__form app-form">
           <div className="app-form__wrapper">
