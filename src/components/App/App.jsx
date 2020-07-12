@@ -1,4 +1,6 @@
 import React from "react";
+import {withAuth} from './AuthContext';
+import PropTypes from 'prop-types';
 
 import LoginForm from "../LoginForm/LoginForm";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
@@ -12,29 +14,33 @@ class App extends React.Component {
     activePage: "login",
   };
 
+  static propTypes = {
+    isLoggedIn: PropTypes.bool,
+    logIn: PropTypes.func,
+    logOut: PropTypes.func
+  }
+
   renderPages = (page) => {
     switch (page) {
       case "login":
-        return <LoginForm hideLogin={this.hideLogin} />;
+        return <LoginForm changePage={this.changePage} />;
       case "registration":
-        return <RegistrationForm hideLogin={this.hideLogin} />;
+        return <RegistrationForm changePage={this.changePage} />;
       case "map":
         return <Map />;
       case "profile":
         return <Profile />;
       default:
-        return <LoginForm hideLogin={this.hideLogin} />;
+        return <LoginForm changePage={this.changePage} />;
     }
-  };
-
-  hideLogin = (e) => {
-    e.preventDefault();
-    this.setState({ activePage: "map" });
   };
 
   changePage = (e, page) => {
     e.preventDefault();
-    this.setState({activePage: page})
+    if (this.props.isLoggedIn) {
+      return this.setState({activePage: page})
+    }
+    return this.setState({activePage: 'login'})
   }
 
   render() {
@@ -50,4 +56,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth(App);

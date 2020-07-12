@@ -1,9 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {withAuth} from "../App/AuthContext";
+
+import FormLabel from "../common/FormLabel";
+import Input from "../common/Input";
+import Button from "../common/Button";
 
 class LoginForm extends React.Component {
+  static propTypes = {
+    authenticate: PropTypes.func
+  }
+
   render() {
     return (
-      <form onSubmit={this.props.hideLogin} className="app-form">
+      <form onSubmit={async (e) => {
+        await this.props.logIn();
+        this.props.changePage(e, 'map');
+        }} className="app-form">
         <div className="app-form__wrapper">
           <h2 className="app-form__title">Войти</h2>
           <p className="app-form__suggestion">
@@ -14,21 +27,21 @@ class LoginForm extends React.Component {
           </p>
           <div className="app-form__fields">
             <div className="app-form__row">
-              <label className="app-form__field">
+              <FormLabel>
                 <span className="app-form__fieldname">Имя пользователя</span>
-                <input type="text" className="app-form__input" />
-              </label>
+                <Input type="text" className="app-form__input" data-testid="username" />
+              </FormLabel>
             </div>
             <div className="app-form__row">
-              <label className="app-form__field">
+              <FormLabel>
                 <span className="app-form__fieldname">Пароль</span>
-                <input type="password" className="app-form__input" />
-              </label>
+                <Input type="password" className="app-form__input" data-testid="password"/>
+              </FormLabel>
             </div>
             <div className="app-form__row">
-              <button type="submit" className="button app-form__button">
-                Зарегистрироваться
-              </button>
+              <Button type="submit" className="button app-form__button" data-testid="button">
+                Войти
+              </Button>
             </div>
           </div>
         </div>
@@ -37,4 +50,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default withAuth(LoginForm);

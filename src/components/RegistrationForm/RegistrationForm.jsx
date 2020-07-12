@@ -1,6 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import FormLabel from "../common/FormLabel";
+import Input from "../common/Input";
 
 class RegistrationForm extends React.Component {
+  static propTypes = {
+    authenticate: PropTypes.func,
+  };
+
   render() {
     return (
       <form className="app-form">
@@ -14,33 +22,53 @@ class RegistrationForm extends React.Component {
           </p>
           <div className="app-form__fields">
             <div className="app-form__row">
-              <label className="app-form__field">
+              <FormLabel>
                 <span className="app-form__fieldname">
                   Адрес электронной почты
                 </span>
-                <input type="email" className="app-form__input" />
-              </label>
+                <Input
+                  data-testid="email"
+                  type="email"
+                  className="app-form__input"
+                />
+              </FormLabel>
             </div>
             <div className="app-form__row">
-              <label className="app-form__field">
+              <FormLabel>
                 <span className="app-form__fieldname">Имя</span>
-                <input type="text" className="app-form__input" />
-              </label>
-              <label className="app-form__field">
+                <Input
+                  data-testid="name"
+                  type="text"
+                  className="app-form__input"
+                />
+              </FormLabel>
+              <FormLabel>
                 <span className="app-form__fieldname">Фамилия</span>
-                <input type="text" className="app-form__input" />
-              </label>
+                <Input
+                  data-testid="surname"
+                  type="text"
+                  className="app-form__input"
+                />
+              </FormLabel>
             </div>
             <div className="app-form__row">
-              <label className="app-form__field">
+              <FormLabel>
                 <span className="app-form__fieldname">Пароль</span>
-                <input type="password" className="app-form__input" />
-              </label>
+                <Input
+                  data-testid="password"
+                  type="text"
+                  className="app-form__input"
+                />
+              </FormLabel>
             </div>
           </div>
           <div className="app-form__controls">
             <div className="app-form__row">
-              <button className="button app-form__button">
+              <button
+                type="submit"
+                data-testid="register"
+                className="button app-form__button"
+              >
                 Зарегистрироваться
               </button>
             </div>
