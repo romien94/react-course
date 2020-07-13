@@ -1,21 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {withAuth} from "../App/AuthContext";
+import {connect} from 'react-redux';
+import {authenticate} from '../../modules/actions';
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
 import Button from "../common/Button";
 
-class LoginForm extends React.Component {
-  static propTypes = {
-    authenticate: PropTypes.func
-  }
-
+class LoginForm extends React.Component {                     
   render() {
     return (
       <form onSubmit={async (e) => {
-        await this.props.logIn();
-        this.props.changePage(e, 'map');
+        e.preventDefault();
+        const {email, password} = e.target;
+        this.props.authenticate(email.value, password.value);
         }} className="app-form">
         <div className="app-form__wrapper">
           <h2 className="app-form__title">Войти</h2>
@@ -29,13 +26,13 @@ class LoginForm extends React.Component {
             <div className="app-form__row">
               <FormLabel>
                 <span className="app-form__fieldname">Имя пользователя</span>
-                <Input type="text" className="app-form__input" data-testid="username" />
+                <Input type="text" className="app-form__input" name="email" data-testid="username" />
               </FormLabel>
             </div>
             <div className="app-form__row">
               <FormLabel>
                 <span className="app-form__fieldname">Пароль</span>
-                <Input type="password" className="app-form__input" data-testid="password"/>
+                <Input type="password" className="app-form__input" name="password" data-testid="password"/>
               </FormLabel>
             </div>
             <div className="app-form__row">
@@ -50,4 +47,7 @@ class LoginForm extends React.Component {
   }
 }
 
-export default withAuth(LoginForm);
+export default connect(
+  null,
+  {authenticate}
+)(LoginForm);
