@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { saveProfile, loadProfile } from "../../modules/actions";
 
 import FormLabel from "../common/FormLabel";
@@ -7,6 +8,18 @@ import Input from "../common/Input";
 import Button from "../common/Button";
 
 class PaymentForm extends React.Component {
+  static propTypes = {
+    saveProfile: PropTypes.func,
+    loadProfile: PropTypes.func,
+  };
+
+  state = {
+    number: "",
+    data: "",
+    name: "",
+    cvc: "",
+  };
+
   formRef = React.createRef();
   setFields = () => {
     this.formRef.current.number.value = this.props.number;
@@ -14,26 +27,15 @@ class PaymentForm extends React.Component {
     this.formRef.current.name.value = this.props.name;
     this.formRef.current.cvc.value = this.props.cvc;
   };
-  // fetchDataFromLocalStorage = () => {
-  //   if (localStorage.getItem('cardInfo')) {
-  //     const {number, date, name, cvc} = JSON.parse(localStorage.getItem('cardInfo'));
-  //     this.formRef.current.number.value = number;
-  //     this.formRef.current.date.value = date;
-  //     this.formRef.current.name.value = name;
-  //     this.formRef.current.cvc.value = cvc;
 
-  //     this.props.editProfile(number, date, name, cvc);
-  //   }
-  // }
-  // componentDidMount() {
-  //   this.fetchDataFromLocalStorage();
-  // }
   componentDidMount() {
     this.props.loadProfile();
-    setTimeout(() => {
-      this.setFields();
-    }, 0);
   }
+
+  componentDidUpdate() {
+    this.setFields();
+  }
+
 
   render() {
     return (
@@ -41,13 +43,13 @@ class PaymentForm extends React.Component {
         ref={this.formRef}
         onSubmit={async (e) => {
           e.preventDefault();
-          const { number, date, name, cvc } = e.target;
+          const { number, date, name, cvc } = this.state;
           const token = "AUTH_TOKEN";
           this.props.saveProfile(
-            number.value,
-            date.value,
-            name.value,
-            cvc.value,
+            number,
+            date,
+            name,
+            cvc,
             token
           );
         }}

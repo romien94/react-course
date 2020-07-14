@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile works fine Snapshot matches 1`] = `
+<div>
+  <div
+    className="app-profile"
+  >
+    <div
+      className="app-profile__top"
+    >
+      <h2
+        className="app-profile__title"
+      >
+        Профиль
+      </h2>
+      <p
+        className="app-profile__text"
+      >
+        Способ оплаты
+      </p>
+    </div>
+    <form
+      className="app-profile__form app-form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="app-form__wrapper"
+      >
+        <div
+          className="app-form__cols"
+        >
+          <div
+            className="app-form__col"
+          >
+            <div
+              className="app-form__row"
+            >
+              <label
+                className="MuiFormLabel-root"
+              >
+                <span
+                  className="app-form__fieldname"
+                >
+                  Номер карты:
+                </span>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline app-form__input"
+                  data-testid="number"
+                  onClick={[Function]}
+                >
+                  <input
+                    className="MuiInputBase-input MuiInput-input"
+                    name="number"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    type="text"
+                  />
+                </div>
+              </label>
+            </div>
+            <div
+              className="app-form__row"
+            >
+              <label
+                className="MuiFormLabel-root"
+              >
+                <span
+                  className="app-form__fieldname"
+                >
+                  Срок действия:
+                </span>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline app-form__input"
+                  data-testid="date"
+                  onClick={[Function]}
+                >
+                  <input
+                    className="MuiInputBase-input MuiInput-input"
+                    name="date"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    type="text"
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            className="app-form__col"
+          >
+            <div
+              className="app-form__row"
+            >
+              <label
+                className="MuiFormLabel-root"
+              >
+                <span
+                  className="app-form__fieldname"
+                >
+                  Имя владельца:
+                </span>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline app-form__input"
+                  data-testid="name"
+                  onClick={[Function]}
+                >
+                  <input
+                    className="MuiInputBase-input MuiInput-input"
+                    name="name"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    type="text"
+                  />
+                </div>
+              </label>
+            </div>
+            <div
+              className="app-form__row"
+            >
+              <label
+                className="MuiFormLabel-root"
+              >
+                <span
+                  className="app-form__fieldname"
+                >
+                  CVC:
+                </span>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline"
+                  data-testid="cvc"
+                  onClick={[Function]}
+                >
+                  <input
+                    className="MuiInputBase-input MuiInput-input"
+                    name="cvc"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    type="password"
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          className="app-form__controls"
+        >
+          <div
+            className="app-form__row"
+          >
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained button app-form__button"
+              data-testid="save"
+              disabled={false}
+              onBlur={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="submit"
+            >
+              <span
+                className="MuiButton-label"
+              >
+                Сохранить
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

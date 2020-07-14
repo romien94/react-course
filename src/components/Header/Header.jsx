@@ -8,6 +8,10 @@ import { Logo } from "loft-taxi-mui-theme";
 // import Link from "@material-ui/core/Link";
 
 class Header extends React.Component {
+  static propTypes={
+    logOut: PropTypes.func
+  }
+
   render() {
     return (
       <header className="app-header">

@@ -3,7 +3,7 @@ export const LOG_OUT = "LOG_OUT";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOAD_PROFILE = "LOAD_PROFILE";
 export const SAVE_PROFILE = "SAVE_PROFILE";
-export const SAVE_TO_STORE = "SAVE_TO_LOCAL_STORAGE";
+export const SAVE_TO_STORE = "SAVE_TO_STORE";
 
 export const logIn = () => ({ type: LOG_IN });
 export const logOut = () => ({ type: LOG_OUT });

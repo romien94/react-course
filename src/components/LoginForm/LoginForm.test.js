@@ -2,11 +2,22 @@ import React from "react";
 import { render } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import LoginForm from "./LoginForm";
+import {store} from '../../modules/store';
+import {Provider} from 'react-redux';
+import { BrowserRouter } from "react-router-dom";
+
+const NewLoginForm = () => (
+  <BrowserRouter>
+    <Provider store={store}>
+      <LoginForm />
+    </Provider>
+  </BrowserRouter>
+);
 
 describe("Login works fine", () => {
-  const { getByTestId } = render(<LoginForm />);
+  const { getByTestId } = render(<NewLoginForm />);
   it("Snapshot matches", () => {
-    const mockLoginForm = renderer.create(<LoginForm />).toJSON();
+    const mockLoginForm = renderer.create(<NewLoginForm />).toJSON();
     expect(mockLoginForm).toMatchSnapshot();
   });
 
