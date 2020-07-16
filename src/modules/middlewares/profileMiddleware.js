@@ -12,7 +12,8 @@ export const profileMiddleware = (store) => (next) => async (action) => {
     }
   }
   if (action.type === LOAD_PROFILE) {
-    const success = await loadServerProfile("AUTH_TOKEN");
+    const {token} = action.payload;
+    const success = await loadServerProfile(token);
     if (localStorage.getItem("cardData")) {
       const { number, date, name, cvc, token } = JSON.parse(
         localStorage.getItem("cardData")

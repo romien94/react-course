@@ -29,13 +29,9 @@ class PaymentForm extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadProfile();
+    this.props.loadProfile(this.props.token);
+    // this.setFields();
   }
-
-  componentDidUpdate() {
-    this.setFields();
-  }
-
 
   render() {
     return (
@@ -44,14 +40,8 @@ class PaymentForm extends React.Component {
         onSubmit={async (e) => {
           e.preventDefault();
           const { number, date, name, cvc } = this.state;
-          const token = "AUTH_TOKEN";
-          this.props.saveProfile(
-            number,
-            date,
-            name,
-            cvc,
-            token
-          );
+          const {token} = this.props;
+          this.props.saveProfile(number, date, name, cvc, token);
         }}
         className="app-profile__form app-form"
       >
@@ -62,6 +52,10 @@ class PaymentForm extends React.Component {
                 <FormLabel>
                   <span className="app-form__fieldname">Номер карты:</span>
                   <Input
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      this.setState({ number: value });
+                    }}
                     type="text"
                     name="number"
                     data-testid="number"
@@ -73,6 +67,10 @@ class PaymentForm extends React.Component {
                 <FormLabel>
                   <span className="app-form__fieldname">Срок действия:</span>
                   <Input
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      this.setState({ date: value });
+                    }}
                     type="text"
                     name="date"
                     data-testid="date"
@@ -86,6 +84,10 @@ class PaymentForm extends React.Component {
                 <FormLabel>
                   <span className="app-form__fieldname">Имя владельца:</span>
                   <Input
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      this.setState({ name: value });
+                    }}
                     type="text"
                     name="name"
                     data-testid="name"
@@ -96,7 +98,15 @@ class PaymentForm extends React.Component {
               <div className="app-form__row">
                 <FormLabel>
                   <span className="app-form__fieldname">CVC:</span>
-                  <Input name="cvc" data-testid="cvc" type="password" />
+                  <Input
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      this.setState({ cvc: value });
+                    }}
+                    name="cvc"
+                    data-testid="cvc"
+                    type="password"
+                  />
                 </FormLabel>
               </div>
             </div>
@@ -118,6 +128,6 @@ class PaymentForm extends React.Component {
   }
 }
 
-export default connect((state) => state.profile, { saveProfile, loadProfile })(
+export default connect((state) => ({...state.profile, token: state.auth.token}), { saveProfile, loadProfile })(
   PaymentForm
 );

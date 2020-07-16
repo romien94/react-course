@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../modules/actions";
 import PropTypes from "prop-types";
+import {Link} from 'react-router-dom';
+
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
@@ -30,9 +32,10 @@ class LoginForm extends React.Component {
           <h2 className="app-form__title">Войти</h2>
           <p className="app-form__suggestion">
             Новый пользователь?
-            <a href="" className="app-form__link">
+            <Link to="/register">Зарегистрироваться</Link>
+            {/* <a href="" className="app-form__link">
               Зарегистрироваться
-            </a>
+            </a> */}
           </p>
           <div className="app-form__fields">
             <div className="app-form__row">

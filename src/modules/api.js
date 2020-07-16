@@ -8,9 +8,9 @@ export const serverLogIn = async (email, password) => {
       email: email,
       password: password,
     }),
-  }).then((res) => {
-    if (res.status === 200) return res.json();
-  });
+  })
+    .then(res => res.json())
+    .then(data => data.success);
 };
 
 export const serverProfile = async (

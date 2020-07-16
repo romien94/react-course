@@ -9,6 +9,7 @@ import {PrivateRoute} from "./PrivateRoute";
 import Header from "../Header/Header";
 import Map from "../Map/Map";
 import Profile from "../Profile/Profile";
+import RegistrationForm from "../RegistrationForm/RegistrationForm";
 
 class App extends React.Component {
   static propTypes = {
@@ -19,10 +20,12 @@ class App extends React.Component {
     return (
       <div className="app">
         {this.props.isLoggedIn && <Header />}
+        {this.props.error && <div>Log in Error</div>}
         <main>
           {
             <Switch>
               {!this.props.isLoggedIn && <Route exact path="/" component={LoginForm}/>}
+              <Route path="/register" component={RegistrationForm}></Route>
               <PrivateRoute path="/map" component={Map}></PrivateRoute>
               <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
               <Redirect from="*" to="/"></Redirect>
@@ -34,4 +37,4 @@ class App extends React.Component {
   }
 }
 
-export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(App);
+export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn, token: state.auth.token, error: state.auth.error }))(App);

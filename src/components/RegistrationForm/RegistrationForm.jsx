@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
+import {Link} from 'react-router-dom';
 
 class RegistrationForm extends React.Component {
   static propTypes = {
@@ -16,9 +17,7 @@ class RegistrationForm extends React.Component {
           <h2 className="app-form__title">Регистрация</h2>
           <p className="app-form__suggestion">
             Уже зарегистрированы?
-            <a href="" className="app-form__link">
-              Войти
-            </a>
+            <Link to="/login">Войти</Link>
           </p>
           <div className="app-form__fields">
             <div className="app-form__row">
