@@ -53,7 +53,6 @@ class LoginForm extends React.Component {
               <FormLabel>
                 <span className="app-form__fieldname">Пароль</span>
                 <Input
-                  onChange={(e) => console.log(e.target.name)}
                   type="password"
                   className="app-form__input"
                   name="password"

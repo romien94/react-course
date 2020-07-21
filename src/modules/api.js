@@ -5,12 +5,10 @@ export const serverLogIn = async (email, password) => {
     method: "POST",
     headers: HEADERS,
     body: JSON.stringify({
-      email: email,
-      password: password,
+      email,
+      password,
     }),
-  })
-    .then(res => res.json())
-    .then(data => data.success);
+  }).then((res) => res.json());
 };
 
 export const serverProfile = async (
@@ -30,9 +28,7 @@ export const serverProfile = async (
       cvc,
       token,
     }),
-  }).then((res) => {
-    if (res.status === 200) return res.json();
-  });
+  }).then((res) => res.json());
 };
 
 export const loadServerProfile = async (token) => {
@@ -46,4 +42,53 @@ export const loadServerProfile = async (token) => {
       if (res.status === 200) return res.json();
     }
   );
+};
+
+export const serverRegister = async (
+  email,
+  password,
+  name,
+  surname,
+) => {
+  return fetch(`${BASE_URL}/register`, {
+    method: "POST",
+    headers: HEADERS,
+    body: JSON.stringify({
+      email,
+      password,
+      name,
+      surname,
+    }),
+  }).then(res => res.json())
+};
+
+
+export const serverAddresses = async (startingPoint, endingPoint) => {
+  return fetch(`${BASE_URL}/addressList`)
+  .then(res => res.json())
+}
+
+// export const serverRoute = async (address1, address2) => {
+//   return fetch(`${BASE_URL}/route`, {
+//     method: 'GET',
+//     headers: HEADERS,
+//     body: JSON.stringify({
+//       address1,
+//       address2
+//     })
+//   })
+//   .then(res => res.json())
+// }
+
+export const serverRoute = async (address1, address2) => {
+  // return fetch(`${BASE_URL}/auth`, {
+  //   method: "POST",
+  //   headers: HEADERS,
+  //   body: JSON.stringify({
+  //     address1,
+  //     address2,
+  //   }),
+  // }).then((res) => res.json());
+  return fetch(`${BASE_URL}/route?address1=${address1}&address2=${address2}`)
+  .then(res => res.json())
 };

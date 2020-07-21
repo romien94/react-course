@@ -1,18 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../modules/actions";
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 class RegistrationForm extends React.Component {
   static propTypes = {
     authenticate: PropTypes.func,
   };
 
+  state = {
+    email: "",
+    password: "",
+    firstName: "",
+    secondName: "",
+  };
+
   render() {
     return (
-      <form className="app-form">
+      <form className="app-form" onSubmit={e => {
+        e.preventDefault();
+        const {email, password, firstName, secondName} = this.state;
+        this.props.registerUser(email, password, firstName, secondName);
+      }}>
         <div className="app-form__wrapper">
           <h2 className="app-form__title">Регистрация</h2>
           <p className="app-form__suggestion">
@@ -26,6 +39,7 @@ class RegistrationForm extends React.Component {
                   Адрес электронной почты
                 </span>
                 <Input
+                  onChange={(e) => this.setState({ email: e.target.value })}
                   data-testid="email"
                   type="email"
                   className="app-form__input"
@@ -36,6 +50,7 @@ class RegistrationForm extends React.Component {
               <FormLabel>
                 <span className="app-form__fieldname">Имя</span>
                 <Input
+                  onChange={(e) => this.setState({ firstName: e.target.value })}
                   data-testid="name"
                   type="text"
                   className="app-form__input"
@@ -44,6 +59,9 @@ class RegistrationForm extends React.Component {
               <FormLabel>
                 <span className="app-form__fieldname">Фамилия</span>
                 <Input
+                  onChange={(e) =>
+                    this.setState({ secondName: e.target.value })
+                  }
                   data-testid="surname"
                   type="text"
                   className="app-form__input"
@@ -54,6 +72,7 @@ class RegistrationForm extends React.Component {
               <FormLabel>
                 <span className="app-form__fieldname">Пароль</span>
                 <Input
+                  onChange={(e) => this.setState({ password: e.target.value })}
                   data-testid="password"
                   type="text"
                   className="app-form__input"
@@ -78,4 +97,4 @@ class RegistrationForm extends React.Component {
   }
 }
 
-export default RegistrationForm;
+export default connect(state => ({error: state.auth.error}), {registerUser})(RegistrationForm);

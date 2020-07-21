@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import LoginForm from "../LoginForm/LoginForm";
 
-import {PrivateRoute} from "./PrivateRoute";
+import { PrivateRoute } from "./PrivateRoute";
 import Header from "../Header/Header";
 import Map from "../Map/Map";
 import Profile from "../Profile/Profile";
@@ -20,11 +20,13 @@ class App extends React.Component {
     return (
       <div className="app">
         {this.props.isLoggedIn && <Header />}
-        {this.props.error && <div>Log in Error</div>}
+        {this.props.error && <div>{this.props.error}</div>}
         <main>
           {
             <Switch>
-              {!this.props.isLoggedIn && <Route exact path="/" component={LoginForm}/>}
+              {!this.props.isLoggedIn && (
+                <Route exact path="/" component={LoginForm} />
+              )}
               <Route path="/register" component={RegistrationForm}></Route>
               <PrivateRoute path="/map" component={Map}></PrivateRoute>
               <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
@@ -37,4 +39,8 @@ class App extends React.Component {
   }
 }
 
-export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn, token: state.auth.token, error: state.auth.error }))(App);
+export default connect((state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  token: state.auth.token,
+  error: state.auth.error,
+}))(App);

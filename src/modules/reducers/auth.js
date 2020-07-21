@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
         case LOG_OUT:
             return {isLoggedIn: false, token: null,error: null};
         case ERROR:
-            return {isLoggedIn: false, error: action.payload}
+            return {isLoggedIn: false, token: null, error: action.payload}
         default:
             return state
     }

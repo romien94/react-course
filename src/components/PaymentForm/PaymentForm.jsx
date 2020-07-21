@@ -15,22 +15,24 @@ class PaymentForm extends React.Component {
 
   state = {
     number: "",
-    data: "",
+    date: "",
     name: "",
     cvc: "",
   };
 
   formRef = React.createRef();
-  setFields = () => {
-    this.formRef.current.number.value = this.props.number;
-    this.formRef.current.date.value = this.props.date;
-    this.formRef.current.name.value = this.props.name;
-    this.formRef.current.cvc.value = this.props.cvc;
-  };
 
   componentDidMount() {
     this.props.loadProfile(this.props.token);
-    // this.setFields();
+    setTimeout(() => {
+      const { number, date, name, cvc } = this.props;
+      this.setState({
+        number,
+        date,
+        name,
+        cvc,
+      });
+    }, 500);
   }
 
   render() {
@@ -40,7 +42,7 @@ class PaymentForm extends React.Component {
         onSubmit={async (e) => {
           e.preventDefault();
           const { number, date, name, cvc } = this.state;
-          const {token} = this.props;
+          const { token } = this.props;
           this.props.saveProfile(number, date, name, cvc, token);
         }}
         className="app-profile__form app-form"
@@ -59,6 +61,7 @@ class PaymentForm extends React.Component {
                     type="text"
                     name="number"
                     data-testid="number"
+                    value={this.state.number}
                     className="app-form__input"
                   />
                 </FormLabel>
@@ -75,6 +78,7 @@ class PaymentForm extends React.Component {
                     name="date"
                     data-testid="date"
                     className="app-form__input"
+                    value={this.state.date}
                   />
                 </FormLabel>
               </div>
@@ -92,6 +96,7 @@ class PaymentForm extends React.Component {
                     name="name"
                     data-testid="name"
                     className="app-form__input"
+                    value={this.state.name}
                   />
                 </FormLabel>
               </div>
@@ -106,6 +111,7 @@ class PaymentForm extends React.Component {
                     name="cvc"
                     data-testid="cvc"
                     type="password"
+                    value={this.state.cvc}
                   />
                 </FormLabel>
               </div>
@@ -128,6 +134,7 @@ class PaymentForm extends React.Component {
   }
 }
 
-export default connect((state) => ({...state.profile, token: state.auth.token}), { saveProfile, loadProfile })(
-  PaymentForm
-);
+export default connect(
+  (state) => ({ ...state.profile, token: state.auth.token }),
+  { saveProfile, loadProfile }
+)(PaymentForm);

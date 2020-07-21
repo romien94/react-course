@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import PropTypes from "prop-types";
 import {connect} from 'react-redux';
-import {logOut} from '../../modules/actions';
+import {logOut, fetchAddresses} from '../../modules/actions';
 import {Link} from 'react-router-dom';
 
 import { Logo } from "loft-taxi-mui-theme";
@@ -65,5 +65,5 @@ class Header extends React.Component {
 
 export default connect(
   null,
-  {logOut}
+  {logOut, fetchAddresses}
 )(Header);
