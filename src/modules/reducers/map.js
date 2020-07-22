@@ -8,9 +8,15 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case GET_ADDRESSES:
-            return {addressesList: action.payload}
+            return {
+                ...state, 
+                addressesList: action.payload
+            }
         case SAVE_COORDS:
-            return {coords: action.payload}
+            return {
+                ...state,
+                coords: action.payload
+            }
         default:
             return state;
     }

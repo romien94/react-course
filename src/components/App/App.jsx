@@ -14,6 +14,8 @@ import RegistrationForm from "../RegistrationForm/RegistrationForm";
 class App extends React.Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool,
+    token: PropTypes.string,
+    error: PropTypes.string
   };
 
   render() {
