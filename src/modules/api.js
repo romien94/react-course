@@ -32,11 +32,6 @@ export const serverProfile = async (
 };
 
 export const loadServerProfile = async (token) => {
-  // return fetch(`${BASE_URL}/card`, {
-  //   method: 'POST',
-  //   headers: HEADERS,
-  //   body: JSON.stringify(token)
-  // })
   return fetch(`https://loft-taxi.glitch.me/card?token=${token}`).then(
     (res) => {
       if (res.status === 200) return res.json();

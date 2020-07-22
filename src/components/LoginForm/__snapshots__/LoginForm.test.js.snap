@@ -18,8 +18,8 @@ exports[`Login works fine Snapshot matches 1`] = `
     >
       Новый пользователь?
       <a
-        className="app-form__link"
-        href=""
+        href="/register"
+        onClick={[Function]}
       >
         Зарегистрироваться
       </a>

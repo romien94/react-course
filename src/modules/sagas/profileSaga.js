@@ -45,7 +45,6 @@ export function* loadProfileSaga(action) {
 }
 
 export function* saveProfileSaga(action) {
-    // console.log(action);
   const { number, date, name, cvc, token } = action.payload;
   try {
     const result = yield call(serverProfile, number, date, name, cvc, token);

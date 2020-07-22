@@ -56,6 +56,7 @@ exports[`Profile works fine Snapshot matches 1`] = `
                     onChange={[Function]}
                     onFocus={[Function]}
                     type="text"
+                    value=""
                   />
                 </div>
               </label>
@@ -84,6 +85,7 @@ exports[`Profile works fine Snapshot matches 1`] = `
                     onChange={[Function]}
                     onFocus={[Function]}
                     type="text"
+                    value=""
                   />
                 </div>
               </label>
@@ -116,6 +118,7 @@ exports[`Profile works fine Snapshot matches 1`] = `
                     onChange={[Function]}
                     onFocus={[Function]}
                     type="text"
+                    value=""
                   />
                 </div>
               </label>
@@ -144,6 +147,7 @@ exports[`Profile works fine Snapshot matches 1`] = `
                     onChange={[Function]}
                     onFocus={[Function]}
                     type="password"
+                    value=""
                   />
                 </div>
               </label>
