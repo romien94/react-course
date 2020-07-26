@@ -1,7 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
 import PropTypes from "prop-types";
 import { saveProfile, loadProfile } from "../../modules/actions";
+import {
+  required,
+  minLength3,
+  maxLength3,
+} from "../../utils/validators";
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
@@ -49,12 +55,11 @@ class PaymentForm extends React.Component {
     return (
       <form
         ref={this.formRef}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const { number, date, name, cvc } = this.state;
+        onSubmit={this.props.handleSubmit((val) => {
+          const { number, date, name, cvc } = val;
           const { token } = this.props;
           this.props.saveProfile(number, date, name, cvc, token);
-        }}
+        })}
         className="app-profile__form app-form"
       >
         <div className="app-form__wrapper">
@@ -63,7 +68,7 @@ class PaymentForm extends React.Component {
               <div className="app-form__row">
                 <FormLabel>
                   <span className="app-form__fieldname">Номер карты:</span>
-                  <Input
+                  <Field
                     onChange={(e) => {
                       const value = e.target.value;
                       this.setState({ number: value });
@@ -73,13 +78,15 @@ class PaymentForm extends React.Component {
                     data-testid="number"
                     value={this.state.number}
                     className="app-form__input"
+                    component={Input}
+                    validate={[required]}
                   />
                 </FormLabel>
               </div>
               <div className="app-form__row">
                 <FormLabel>
                   <span className="app-form__fieldname">Срок действия:</span>
-                  <Input
+                  <Field
                     onChange={(e) => {
                       const value = e.target.value;
                       this.setState({ date: value });
@@ -89,6 +96,8 @@ class PaymentForm extends React.Component {
                     data-testid="date"
                     className="app-form__input"
                     value={this.state.date}
+                    component={Input}
+                    validate={[required]}
                   />
                 </FormLabel>
               </div>
@@ -97,7 +106,7 @@ class PaymentForm extends React.Component {
               <div className="app-form__row">
                 <FormLabel>
                   <span className="app-form__fieldname">Имя владельца:</span>
-                  <Input
+                  <Field
                     onChange={(e) => {
                       const value = e.target.value;
                       this.setState({ name: value });
@@ -107,13 +116,15 @@ class PaymentForm extends React.Component {
                     data-testid="name"
                     className="app-form__input"
                     value={this.state.name}
+                    component={Input}
+                    validate={[required]}
                   />
                 </FormLabel>
               </div>
               <div className="app-form__row">
                 <FormLabel>
                   <span className="app-form__fieldname">CVC:</span>
-                  <Input
+                  <Field
                     onChange={(e) => {
                       const value = e.target.value;
                       this.setState({ cvc: value });
@@ -122,6 +133,8 @@ class PaymentForm extends React.Component {
                     data-testid="cvc"
                     type="password"
                     value={this.state.cvc}
+                    component={Input}
+                    validate={[required, minLength3, maxLength3]}
                   />
                 </FormLabel>
               </div>
@@ -144,7 +157,11 @@ class PaymentForm extends React.Component {
   }
 }
 
-export default connect(
+const PaymentFormConnect = connect(
   (state) => ({ ...state.profile, token: state.auth.token }),
   { saveProfile, loadProfile }
 )(PaymentForm);
+
+export default reduxForm({
+  form: "paymentForm",
+})(PaymentFormConnect);
