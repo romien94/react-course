@@ -1,0 +1,47 @@
+.appHeader {
+    background-color: white;
+    padding: 0 10px;
+}
+
+
+.headerWrapper {
+    display: flex;
+    /* max-width: 1170px; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width:480px) {
+    .headerWrapper {
+        padding: 10px 0;
+        flex-direction: column;
+    }
+}
+
+.navList {
+    list-style: none;
+    display: flex;
+}
+
+.navItem {
+    display: block; 
+}
+
+.navLink {
+    display: block;
+    background-color: transparent;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.navLink:hover {
+    background-color: #f2f2f2;
+}
+
+.navLinkActive{
+    background-color: #f2f2f2;
+}

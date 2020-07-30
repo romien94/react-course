@@ -1,0 +1,17 @@
+.button {
+    background-color: #ffc700;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 21px;
+}
+
+.buttonFullWidth {
+    flex: 1;
+}
+
+.button:hover {
+    background-color: yellowgreen;
+    transition: .7s;
+}

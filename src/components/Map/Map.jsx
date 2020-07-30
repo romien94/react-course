@@ -2,8 +2,11 @@ import mapboxgl from "mapbox-gl";
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { fetchAddresses, sendRoute } from "../../modules/actions";
+import { fetchAddresses, sendRoute, saveCoords } from "../../modules/actions";
 import PropTypes from "prop-types";
+import styles from "./Map.module.css";
+import buttonStyles from "../common/Button.module.css";
+import Input from "../common/Input";
 
 import FormLabel from "../common/FormLabel";
 import Button from "../common/Button";
@@ -15,6 +18,7 @@ class Map extends React.Component {
     startingPoint: null,
     endingPoint: null,
     filteredArray: [],
+    showMessage: false,
   };
 
   static propTypes = {
@@ -22,14 +26,6 @@ class Map extends React.Component {
     addressesList: PropTypes.array,
     fetchAddresses: PropTypes.func,
     sendRoute: PropTypes.func,
-  };
-
-  filterArray = () => {
-    const arr = this.props.addressesList.filter(
-      (item) =>
-        item !== this.state.startingPoint && item !== this.state.endingPoint
-    );
-    return this.setState({ filteredArray: arr });
   };
 
   componentDidMount() {
@@ -46,8 +42,17 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.coords !== prevProps.coords) {
+    if (
+      this.props.coords &&
+      this.props.coords !== prevProps.coords
+    ) {
       this.drawRoute(this.mapbox, this.props.coords);
+      this.setState({showMessage: true});
+    }
+    if (!this.props.coords && this.props.coords !== prevProps.coords) {
+      this.setState({ showMessage: false });
+      this.setState({ startingPoint: null });
+      this.setState({ endingPoint: null });
     }
   }
 
@@ -84,11 +89,39 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div className="app-map">
-        {localStorage.getItem("cardData") ? (
+      <div className={styles.map}>
+        {this.state.showMessage && (
+          <div className={styles.mapForm}>
+            <div className={`${styles.mapWrapper} ${styles.mapWrapperBig}`}>
+              <h2 className={styles.formTitle}>Заказ размёщен</h2>
+              <p className={styles.formText}>
+                Ваше такси уже едет к вам. Прибудет приблизительно через 10
+                минут.
+              </p>
+              <div className={styles.formRow}>
+                <Button
+                  className={`${buttonStyles.button} ${buttonStyles.buttonFullWidth}`}
+                  onClick={(e) => {
+                    if (this.mapbox.getLayer("route")) {
+                      this.mapbox.removeLayer("route");
+                      this.setState({ showMessage: false });
+                    }
+                    if (this.mapbox.getSource("route")) {
+                      this.mapbox.removeSource("route");
+                      this.props.saveCoords(null);
+                    }
+                  }}
+                >
+                  Сделать новый заказ
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+        {this.state.showMessage === false && localStorage.getItem("cardData") ? (
           <form
             data-testid="form"
-            className="app-map__form app-form"
+            className={styles.mapForm}
             onSubmit={(e) => {
               e.preventDefault();
               this.props.sendRoute(
@@ -97,67 +130,65 @@ class Map extends React.Component {
               );
             }}
           >
-            <div className="app-form__wrapper">
-              <div className="app-form__fields">
-                <div className="app-form__row">
-                  <FormLabel>
+            <div className={styles.mapWrapper}>
+              <div className={styles.formFields}>
+                <div className={styles.formRow}>
+                  <label className={styles.formLabel}>
                     <span className="app-form__fieldname">Откуда:</span>
-                    <select
-                      name="startingPoint"
-                      value={
-                        this.state.startingPoint ||
-                        "Выберите точку начала маршрута"
-                      }
+                    <Field
+                      component={Input}
+                      name="start"
+                      list="startPoint"
+                      className={styles.formInput}
                       onChange={(e) =>
                         this.setState({ startingPoint: e.target.value })
                       }
-                    >
-                      <option value="Выберите точку начала маршрута">
-                        Выберите точку начала маршрута
-                      </option>
-                      {this.props.addressesList
-                        .filter((item) => item !== this.state.endingPoint)
-                        .map((address) => (
-                          <option value={address} key={address}>
-                            {address}
-                          </option>
-                        ))}
-                    </select>
-                  </FormLabel>
+                      value={this.state.startingPoint? this.state.startingPoint : ''}
+                    ></Field>
+                  </label>
+                  <datalist id="startPoint">
+                    {this.props.addressesList
+                      .filter((item) => item !== this.state.endingPoint)
+                      .map((address) => (
+                        <option value={address} key={address}></option>
+                      ))}
+                  </datalist>
                 </div>
-                <div className="app-form__row">
-                  <FormLabel>
+                <div className={styles.formRow}>
+                  <label className={styles.formLabel}>
                     <span className="app-form__fieldname">Куда:</span>
-                    <select
-                      name="endingPoint"
-                      value="choose2"
-                      value={
-                        this.state.endingPoint ||
-                        "Выберите точку конца маршрута"
-                      }
+                    <Field
+                      name="end"
+                      component={Input}
+                      list="endPoint"
+                      className={styles.formInput}
                       onChange={(e) =>
                         this.setState({ endingPoint: e.target.value })
                       }
-                    >
-                      <option value="Выберите точку конца маршрута">
-                        Выберите точку конца маршрута
-                      </option>
-                      {this.props.addressesList
-                        .filter((item) => item !== this.state.startingPoint)
-                        .map((address) => (
-                          <option value={address} key={address}>
-                            {address}
-                          </option>
-                        ))}
-                    </select>
-                  </FormLabel>
+                      value={this.state.endingPoint? this.state.endingPoint : ''}
+                    ></Field>
+                  </label>
+                  <datalist name="endingPoint" value="choose2" id="endPoint">
+                    {this.props.addressesList
+                      .filter((item) => item !== this.state.startingPoint)
+                      .map((address) => (
+                        <option value={address} key={address}>
+                          {address}
+                        </option>
+                      ))}
+                  </datalist>
                 </div>
                 <div className="app-form__controls">
-                  <div className="app-form__row">
+                  <div className={styles.formRow}>
                     <Button
                       data-testid="call"
                       type="submit"
-                      className="button app-form__button"
+                      className={`${buttonStyles.button} ${buttonStyles.buttonFullWidth}`}
+                      disabled={
+                        this.state.startingPoint && this.state.endingPoint
+                          ? false
+                          : true
+                      }
                     >
                       Вызвать такси
                     </Button>
@@ -167,11 +198,15 @@ class Map extends React.Component {
             </div>
           </form>
         ) : (
-          <div>Заполните профиль</div>
+          <div className={styles.mapForm}>
+          <div className={`${styles.mapWrapper} ${styles.mapWrapperBig}`}>
+            <h2 className={styles.formText}>Заполните профиль для заказа такси</h2>
+          </div>
+        </div>
         )}
         <div
           ref={this.map}
-          style={{ height: "500px" }}
+          style={{ width: "100vw", height: "100vh" }}
           className="app-map__map"
           data-testid="map"
         />
@@ -180,8 +215,10 @@ class Map extends React.Component {
   }
 }
 
-const MapConnect = connect((state) => state.map, { fetchAddresses, sendRoute })(
-  Map
-);
+const MapConnect = connect((state) => state.map, {
+  fetchAddresses,
+  sendRoute,
+  saveCoords,
+})(Map);
 
 export default reduxForm({ form: "mapForm" })(MapConnect);

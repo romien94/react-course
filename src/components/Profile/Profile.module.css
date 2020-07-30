@@ -1,0 +1,24 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    width: 945px;
+    min-height: 565px;
+    background-color: white;
+    padding: 75px;
+    align-items: center;
+    text-align: center;
+}
+
+.profileTop {
+    margin-bottom: 35px;
+}
+
+.profileTitle {
+    font-size: 36px;
+}
+
+.profileText {
+    font-size: 16px;
+    color: #505050;
+    text-align: center;
+}

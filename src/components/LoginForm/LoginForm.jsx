@@ -11,6 +11,8 @@ import {
   maxLength3,
   minLength3,
 } from "../../utils/validators";
+import styles from './LoginForm.module.css';
+import buttonStyles from '../common/Button.module.css';
 
 import FormLabel from "../common/FormLabel";
 import Input from "../common/Input";
@@ -33,47 +35,47 @@ class LoginForm extends React.Component {
           const { email, password } = val;
           this.props.authenticate(email, password);
         })}
-        className="app-form"
+        className={styles.appForm}
       >
-        <div className="app-form__wrapper">
-          <h2 className="app-form__title">Войти</h2>
-          <p className="app-form__suggestion">
+        <div className={styles.formWrapper}>
+          <h2 className={styles.formTitle}>Войти</h2>
+          <p className={styles.formSuggestion}>
             Новый пользователь?
-            <Link to="/register">Зарегистрироваться</Link>
+            <Link className={styles.formLink} to="/register"> Зарегистрироваться</Link>
           </p>
-          <div className="app-form__fields">
-            <div className="app-form__row">
-              <FormLabel>
-                <span className="app-form__fieldname">Имя пользователя</span>
+          <div className={styles.formFields}>
+            <div className={styles.formRow}>
+              <label className={styles.formLabel}>
+                <span className={styles.formName}>Имя пользователя</span>
                 <Field
                   type="text"
-                  className="app-form__input"
+                  className={styles.formInput}
                   name="email"
                   data-testid="username"
                   component={Input}
                   onChange={(e) => this.setState({ email: e.target.value })}
                   validate={[required, email]}
                 ></Field>
-              </FormLabel>
+              </label>
             </div>
-            <div className="app-form__row">
-              <FormLabel>
+            <div className={styles.formRow}>
+              <label className={styles.formLabel}>
                 <span className="app-form__fieldname">Пароль</span>
                 <Field
                   type="password"
-                  className="app-form__input"
+                  className={styles.formInput}
                   name="password"
                   data-testid="password"
                   component={Input}
                   onChange={(e) => this.setState({ password: e.target.value })}
                   validate={[required, minLength3]}
                 ></Field>
-              </FormLabel>
+              </label>
             </div>
-            <div className="app-form__row">
+            <div className={styles.formRow}>
               <Button
                 type="submit"
-                className="button app-form__button"
+                className={buttonStyles.button}
                 data-testid="button"
               >
                 Войти

@@ -1,4 +1,4 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import styles from './Button.module.css';
 
-export default (props) => <Button {...props} variant="contained">{props.children}</Button>;
+export default (props) => <button {...props} variant="contained">{props.children}</button>;

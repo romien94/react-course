@@ -1,11 +1,28 @@
 import React from "react";
-import Input from "@material-ui/core/Input"
+import styles from "./Input.module.css";
 
-export default ({input, value, type, placeholder, id, meta: {touched, error}, ...rest}) => {
+export default ({
+  className,
+  input,
+  value,
+  type,
+  placeholder,
+  id,
+  meta: { touched, error },
+  ...rest
+}) => {
   return (
     <>
-      <Input {...input} placeholder={placeholder} id={id} type={type}/>
-      {touched && error && <span>{error}</span>}
+      <input
+        {...input}
+        placeholder={placeholder}
+        id={id}
+        type={type}
+        className={`${className} ${touched && error? styles.inputError:''}`}
+        value={value}
+        {...rest}
+      ></input>
+      {touched && error && <span className={styles.error}>{error}</span>}
     </>
-  )
-}
+  );
+};
