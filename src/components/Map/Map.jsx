@@ -1,6 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import React from "react";
 import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
 import { fetchAddresses, sendRoute } from "../../modules/actions";
 import PropTypes from "prop-types";
 
@@ -179,6 +180,8 @@ class Map extends React.Component {
   }
 }
 
-export default connect((state) => state.map, { fetchAddresses, sendRoute })(
+const MapConnect = connect((state) => state.map, { fetchAddresses, sendRoute })(
   Map
 );
+
+export default reduxForm({ form: "mapForm" })(MapConnect);

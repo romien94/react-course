@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent, act } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import LoginForm from "./LoginForm";
 import {store} from '../../modules/store';
@@ -27,4 +27,10 @@ describe("Login works fine", () => {
     expect(getByTestId("button")).toBeTruthy();
     expect(getByTestId("button")).toHaveAttribute('type','submit');
   });
+
+  describe("On submit", () => {
+    it('dispatches log in credentials', () => {
+      
+    })
+  })
 });
