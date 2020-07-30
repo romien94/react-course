@@ -27,7 +27,6 @@ describe("profileSaga", () => {
               name: "cardName",
               cvc: 'cvc',
               token: undefined,
-            //   type: 'SAVE_TO_STORE'
             }
           },
       ]);

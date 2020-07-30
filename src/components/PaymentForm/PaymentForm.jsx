@@ -24,7 +24,17 @@ class PaymentForm extends React.Component {
 
   componentDidMount() {
     this.props.loadProfile(this.props.token);
-    setTimeout(() => {
+    const { number, date, name, cvc } = this.props;
+    this.setState({
+      number,
+      date,
+      name,
+      cvc,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props !== prevProps) {
       const { number, date, name, cvc } = this.props;
       this.setState({
         number,
@@ -32,7 +42,7 @@ class PaymentForm extends React.Component {
         name,
         cvc,
       });
-    }, 500);
+    }
   }
 
   render() {

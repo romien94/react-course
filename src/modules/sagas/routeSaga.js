@@ -4,6 +4,7 @@ import {serverRoute} from '../api'
 
 export function* showRouteSaga(action) {
     const {address1, address2} = action.payload;
+    const res = yield call(serverRoute, address1, address2);
     try {
         const res = yield call(serverRoute, address1, address2);
         if (res) {

@@ -2,50 +2,26 @@ import mapboxgl from "mapbox-gl";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchAddresses, sendRoute } from "../../modules/actions";
+import PropTypes from "prop-types";
 
 import FormLabel from "../common/FormLabel";
-import Input from "../common/Input";
 import Button from "../common/Button";
 
 class Map extends React.Component {
   map = React.createRef();
   mapbox;
   state = {
-    startingPoint: "Выберите точку начала маршрута",
-    endingPoint: "Выберите точку конца маршрута",
+    startingPoint: null,
+    endingPoint: null,
     filteredArray: [],
   };
 
-  // drawRoute = (map, coordinates) => {
-  //   map.flyTo({
-  //     center: coordinates[0],
-  //     zoom: 15,
-  //   });
-
-  //   map.addLayer({
-  //     id: "route",
-  //     type: "line",
-  //     source: {
-  //       type: "geojson",
-  //       data: {
-  //         type: "Feature",
-  //         properties: {},
-  //         geometry: {
-  //           type: "LineString",
-  //           coordinates,
-  //         },
-  //       },
-  //     },
-  //     layout: {
-  //       "line-join": "round",
-  //       "line-cap": "round",
-  //     },
-  //     paint: {
-  //       "line-color": "#ffc617",
-  //       "line-width": 8,
-  //     },
-  //   });
-  // };
+  static propTypes = {
+    coords: PropTypes.array,
+    addressesList: PropTypes.array,
+    fetchAddresses: PropTypes.func,
+    sendRoute: PropTypes.func,
+  };
 
   filterArray = () => {
     const arr = this.props.addressesList.filter(
@@ -61,18 +37,23 @@ class Map extends React.Component {
     this.mapbox = new mapboxgl.Map({
       container: this.map.current,
       style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-      center: [30.308611, 59.937500], // starting position [lng, lat]
+      center: [30.308611, 59.9375], // starting position [lng, lat]
       zoom: 12, // starting zoom
     });
 
     this.props.fetchAddresses();
-    setTimeout(this.filterArray, 500);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.coords !== prevProps.coords) {
+      this.drawRoute(this.mapbox, this.props.coords);
+    }
   }
 
   drawRoute = (map, coordinates) => {
     map.flyTo({
       center: coordinates[0],
-      zoom: 15,
+      zoom: 12,
     });
 
     map.addLayer({
@@ -103,94 +84,96 @@ class Map extends React.Component {
   render() {
     return (
       <div className="app-map">
+        {localStorage.getItem("cardData") ? (
+          <form
+            data-testid="form"
+            className="app-map__form app-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              this.props.sendRoute(
+                this.state.startingPoint,
+                this.state.endingPoint
+              );
+            }}
+          >
+            <div className="app-form__wrapper">
+              <div className="app-form__fields">
+                <div className="app-form__row">
+                  <FormLabel>
+                    <span className="app-form__fieldname">Откуда:</span>
+                    <select
+                      name="startingPoint"
+                      value={
+                        this.state.startingPoint ||
+                        "Выберите точку начала маршрута"
+                      }
+                      onChange={(e) =>
+                        this.setState({ startingPoint: e.target.value })
+                      }
+                    >
+                      <option value="Выберите точку начала маршрута">
+                        Выберите точку начала маршрута
+                      </option>
+                      {this.props.addressesList
+                        .filter((item) => item !== this.state.endingPoint)
+                        .map((address) => (
+                          <option value={address} key={address}>
+                            {address}
+                          </option>
+                        ))}
+                    </select>
+                  </FormLabel>
+                </div>
+                <div className="app-form__row">
+                  <FormLabel>
+                    <span className="app-form__fieldname">Куда:</span>
+                    <select
+                      name="endingPoint"
+                      value="choose2"
+                      value={
+                        this.state.endingPoint ||
+                        "Выберите точку конца маршрута"
+                      }
+                      onChange={(e) =>
+                        this.setState({ endingPoint: e.target.value })
+                      }
+                    >
+                      <option value="Выберите точку конца маршрута">
+                        Выберите точку конца маршрута
+                      </option>
+                      {this.props.addressesList
+                        .filter((item) => item !== this.state.startingPoint)
+                        .map((address) => (
+                          <option value={address} key={address}>
+                            {address}
+                          </option>
+                        ))}
+                    </select>
+                  </FormLabel>
+                </div>
+                <div className="app-form__controls">
+                  <div className="app-form__row">
+                    <Button
+                      data-testid="call"
+                      type="submit"
+                      className="button app-form__button"
+                    >
+                      Вызвать такси
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        ) : (
+          <div>Заполните профиль</div>
+        )}
         <div
           ref={this.map}
           style={{ height: "500px" }}
           className="app-map__map"
           data-testid="map"
         />
-        <form
-          data-testid="form"
-          className="app-map__form app-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            this.props.sendRoute(
-              this.state.startingPoint,
-              this.state.endingPoint
-            );
-            setTimeout(() => this.drawRoute(this.mapbox, this.props.coords), 1000)
-          }}
-        >
-          <div className="app-form__wrapper">
-            <div className="app-form__fields">
-              <div className="app-form__row">
-                <FormLabel>
-                  <span className="app-form__fieldname">Откуда:</span>
-                  <select
-                    name="startingPoint"
-                    onChange={(e) => {
-                      this.setState({ startingPoint: e.target.value });
-                      this.filterArray();
-                    }}
-                    onClick={(e) => this.filterArray()}
-                    value={this.state.startingPoint}
-                  >
-                    <option value="Выберите точку начала маршрута">
-                      Выберите точку начала маршрута
-                    </option>
-                    {this.props.addressesList &&
-                      this.state.filteredArray.map((address) => (
-                        <option key={address} value={address}>
-                          {address}
-                        </option>
-                      ))}
-                  </select>
-                  {/* <Input
-                    data-testid="from"
-                    type="text"
-                    className="app-form__input"
-                  /> */}
-                </FormLabel>
-              </div>
-              <div className="app-form__row">
-                <FormLabel>
-                  <span className="app-form__fieldname">Куда:</span>
-                  <select
-                    name="endingPoint"
-                    value="choose2"
-                    onClick={(e) => this.filterArray()}
-                    onChange={(e) => {
-                      this.setState({ endingPoint: e.target.value });
-                      this.filterArray();
-                    }}
-                    value={this.state.endingPoint}
-                  >
-                    <option disabled value="Выберите точку конца маршрута">
-                      Выберите точку конца маршрута
-                    </option>
-                    {this.props.addressesList &&
-                      this.state.filteredArray.map((address) => (
-                        <option key={address} value={address}>
-                          {address}
-                        </option>
-                      ))}
-                  </select>
-                </FormLabel>
-              </div>
-              <div className="app-form__controls">
-                <div className="app-form__row">
-                  <Button
-                    data-testid="call"
-                    type="submit"
-                    className="button app-form__button"
-                  >
-                    Вызвать такси
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
       </div>
     );
   }

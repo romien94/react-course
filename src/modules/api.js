@@ -63,27 +63,8 @@ export const serverAddresses = async (startingPoint, endingPoint) => {
   .then(res => res.json())
 }
 
-// export const serverRoute = async (address1, address2) => {
-//   return fetch(`${BASE_URL}/route`, {
-//     method: 'GET',
-//     headers: HEADERS,
-//     body: JSON.stringify({
-//       address1,
-//       address2
-//     })
-//   })
-//   .then(res => res.json())
-// }
 
 export const serverRoute = async (address1, address2) => {
-  // return fetch(`${BASE_URL}/auth`, {
-  //   method: "POST",
-  //   headers: HEADERS,
-  //   body: JSON.stringify({
-  //     address1,
-  //     address2,
-  //   }),
-  // }).then((res) => res.json());
   return fetch(`${BASE_URL}/route?address1=${address1}&address2=${address2}`)
   .then(res => res.json())
 };
