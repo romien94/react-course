@@ -3,6 +3,7 @@
 exports[`Login works fine Snapshot matches 1`] = `
 <form
   className="app-profile__form app-form"
+  onSubmit={[Function]}
 >
   <div
     className="app-form__wrapper"
@@ -31,11 +32,13 @@ exports[`Login works fine Snapshot matches 1`] = `
             >
               <input
                 className="MuiInputBase-input MuiInput-input"
+                name="number"
                 onAnimationStart={[Function]}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
                 type="text"
+                value=""
               />
             </div>
           </label>
@@ -58,11 +61,13 @@ exports[`Login works fine Snapshot matches 1`] = `
             >
               <input
                 className="MuiInputBase-input MuiInput-input"
+                name="date"
                 onAnimationStart={[Function]}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
                 type="text"
+                value=""
               />
             </div>
           </label>
@@ -89,11 +94,13 @@ exports[`Login works fine Snapshot matches 1`] = `
             >
               <input
                 className="MuiInputBase-input MuiInput-input"
+                name="name"
                 onAnimationStart={[Function]}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
                 type="text"
+                value=""
               />
             </div>
           </label>
@@ -116,11 +123,13 @@ exports[`Login works fine Snapshot matches 1`] = `
             >
               <input
                 className="MuiInputBase-input MuiInput-input"
+                name="cvc"
                 onAnimationStart={[Function]}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
                 type="password"
+                value=""
               />
             </div>
           </label>

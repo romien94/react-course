@@ -9,7 +9,7 @@ exports[`Header works fine Snapshot matched 1`] = `
   >
     <a
       className="app-logo"
-      href="http"
+      href="/map"
       onClick={[Function]}
     >
       <img
@@ -34,12 +34,10 @@ exports[`Header works fine Snapshot matched 1`] = `
           className="app-nav__item"
         >
           <a
-            className="MuiTypography-root MuiLink-root MuiLink-underlineHover app-nav__link MuiTypography-colorPrimary"
+            className="app-nav__link"
             data-testid="map"
-            href="#"
-            onBlur={[Function]}
+            href="/map"
             onClick={[Function]}
-            onFocus={[Function]}
           >
             Карта
           </a>
@@ -48,12 +46,10 @@ exports[`Header works fine Snapshot matched 1`] = `
           className="app-nav__item"
         >
           <a
-            className="MuiTypography-root MuiLink-root MuiLink-underlineHover app-nav__link MuiTypography-colorPrimary"
+            className="app-nav__link"
             data-testid="profile"
-            href="#"
-            onBlur={[Function]}
+            href="/profile"
             onClick={[Function]}
-            onFocus={[Function]}
           >
             Профиль
           </a>
@@ -62,12 +58,10 @@ exports[`Header works fine Snapshot matched 1`] = `
           className="app-nav__item"
         >
           <a
-            className="MuiTypography-root MuiLink-root MuiLink-underlineHover app-nav__link MuiTypography-colorPrimary"
+            className="app-nav__link"
             data-testid="exit"
-            href="#"
-            onBlur={[Function]}
+            href="/login"
             onClick={[Function]}
-            onFocus={[Function]}
           >
             Выйти
           </a>

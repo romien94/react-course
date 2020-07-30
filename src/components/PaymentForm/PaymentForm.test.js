@@ -2,11 +2,19 @@ import React from "react";
 import { render } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import PaymentForm from "./PaymentForm";
+import {store} from '../../modules/store';
+import {Provider} from 'react-redux';
+
+const NewPaymentForm = () => (
+  <Provider store={store}>
+    <PaymentForm/>
+  </Provider>
+)
 
 describe("Login works fine", () => {
-  const { getByTestId } = render(<PaymentForm />);
+  const { getByTestId } = render(<NewPaymentForm />);
   it("Snapshot matches", () => {
-    const mockPaymentForm = renderer.create(<PaymentForm />).toJSON();
+    const mockPaymentForm = renderer.create(<NewPaymentForm />).toJSON();
     expect(mockPaymentForm).toMatchSnapshot();
   });
 

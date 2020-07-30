@@ -3,16 +3,20 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App/App.jsx";
 import * as serviceWorker from "./serviceWorker";
-import { AuthProvider } from "./components/App/AuthContext";
-import { theme } from "loft-taxi-mui-theme"; // Импортируем саму тему
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import { theme } from "loft-taxi-mui-theme";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import {store} from './modules/store';
 
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
     </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

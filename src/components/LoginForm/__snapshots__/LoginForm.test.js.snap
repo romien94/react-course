@@ -18,8 +18,8 @@ exports[`Login works fine Snapshot matches 1`] = `
     >
       Новый пользователь?
       <a
-        className="app-form__link"
-        href=""
+        href="/register"
+        onClick={[Function]}
       >
         Зарегистрироваться
       </a>
@@ -45,6 +45,7 @@ exports[`Login works fine Snapshot matches 1`] = `
           >
             <input
               className="MuiInputBase-input MuiInput-input"
+              name="email"
               onAnimationStart={[Function]}
               onBlur={[Function]}
               onChange={[Function]}
@@ -72,6 +73,7 @@ exports[`Login works fine Snapshot matches 1`] = `
           >
             <input
               className="MuiInputBase-input MuiInput-input"
+              name="password"
               onAnimationStart={[Function]}
               onBlur={[Function]}
               onChange={[Function]}
