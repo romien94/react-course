@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
+import styles from './App.module.css';
 
 import LoginForm from "../LoginForm/LoginForm";
 
@@ -20,18 +21,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="app">
+      <div className={styles.app}>
         {this.props.isLoggedIn && <Header />}
         {this.props.error && <div>{this.props.error}</div>}
-        <main>
+        <main className={styles.main}>
+          {/* {!this.props.isLoggedIn && <img src="./logo.png"></img>} */}
           {
             <Switch>
-              {!this.props.isLoggedIn && (
-                <Route exact path="/" component={LoginForm} />
-              )}
+              {/* {this.props.isLoggedIn && <PrivateRoute path="/map" component={Map}></PrivateRoute>} */}
               <Route path="/register" component={RegistrationForm}></Route>
+              {!this.props.isLoggedIn && (
+                <Route exact path="*" component={LoginForm} />
+              )}
               <PrivateRoute path="/map" component={Map}></PrivateRoute>
               <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
+              <PrivateRoute path="/" component={Map}></PrivateRoute>
+              {/* <Route path="/login" component={LoginForm}></Route> */}
               <Redirect from="*" to="/"></Redirect>
             </Switch>
           }

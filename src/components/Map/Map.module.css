@@ -1,0 +1,79 @@
+.map {
+    position: relative;
+    margin: 0 auto;
+}
+
+.mapForm {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+}
+
+.formTitle {
+    font-size: 36px;
+}
+
+.formText {
+    font-size: 18px;
+}
+
+.mapWrapper {
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    z-index: 1000;
+    margin-left: 40px;
+    margin-top: 80px;
+    padding: 40px 50px;
+}
+
+.mapWrapperBig {
+    width: 550px;
+    height: 230px;
+    justify-content: space-between;
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+}
+
+.formRow {
+    display: flex;
+    margin-bottom: 35px;
+}
+
+.formRow:last-child {
+    margin-bottom: 0;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.formInput {
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+    padding: 7px 0;
+    font-size: 18px;
+}
+
+
+.formName {
+    margin-bottom: 20px;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
