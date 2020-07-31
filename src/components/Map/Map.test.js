@@ -17,9 +17,6 @@ describe('Map works fine', () => {
 
   describe('Form is there', () => {
     expect(getByTestId('from')).toBeTruthy();
-    expect(getByTestId('to')).toBeTruthy();
-    expect(getByTestId('call')).toBeTruthy();
-    expect(getByTestId('call')).toHaveAttribute('type', 'submit');
   })
 
   it("Snapshot matched", () => {
